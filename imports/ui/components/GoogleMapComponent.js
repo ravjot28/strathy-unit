@@ -1,8 +1,8 @@
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker,OverlayView } from "react-google-maps"
 import React, {Component} from 'react';
 import {SearchBox} from 'react-google-maps/lib/components/places/SearchBox';
 import _ from 'lodash';
-import { compose, withProps } from "recompose"
+import { compose, withProps } from "recompose";
 
 class GoogleMapComponent extends Component{
 
@@ -101,8 +101,9 @@ class GoogleMapComponent extends Component{
                                                     textOverflow: `ellipses`,
                                                     cursor: `text`
                                                 }}/>
+                           
                         </SearchBox>
-                            {this.props.isMarkerShown && <Marker position={this.props.currentLocation} />}
+                        {this.props.isMarkerShown && <Marker position={this.props.currentLocation} />}
             </GoogleMap>
         ); 
     }
@@ -114,7 +115,7 @@ export default compose(
     withProps({
       googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDGypUeicTUNhGdEhWueQ7YqTTkXJzwuCs&v=3.exp&libraries=geometry,drawing,places",
       loadingElement:<div style={{ height: `100%` }} />,
-      containerElement:<div style={{ height: `96vh`,width:`100vw` }} />,
+      containerElement:<div style={{ height: `96.5vh`,width:`100vw` }} />,
       mapElement:<div style={{ height: `100%` }} />,
     }),
   withScriptjs,withGoogleMap)((GoogleMapComponent));

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem,NavDropdown,MenuItem,UncontrolledDropdown } from 'react-bootstrap';
 import StaticModal from '../components/StaticModal';
 import { LinkContainer } from 'react-router-bootstrap';
 import {Link} from 'react-router-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Configurations } from '../../api/configurations';
+import Multiselect from 'react-bootstrap-multiselect';
 
 class Header extends React.Component{
   constructor(props, context) {
@@ -12,14 +13,10 @@ class Header extends React.Component{
 
     this.state = {
       lgShow: false,
-      faqTitle: 'FAQ',
-      faqBody: 'How do I make a recording? To record and submit your voice, click on the "Add Audio" tab and follow the prompts. Please note that this feature only works when using Chrome as your Browser. How do I listen to a recording? To listen to a recording, click on a marker, choose the work you want to hear and please "play".',
-      aboutTitle: 'About',
-      aboutBody: 'How do I make a recording? To record and submit your voice, click on the "Add Audio" tab and follow the prompts. Please note that this feature only works when using Chrome as your Browser. How do I listen to a recording? To listen to a recording, click on a marker, choose the work you want to hear and please "play".',
-      downloadAudioTitle: 'Download Audio',
-      downloadAudioBody: 'How do I make a recording? To record and submit your voice, click on the "Add Audio" tab and follow the prompts. Please note that this feature only works when using Chrome as your Browser. How do I listen to a recording? To listen to a recording, click on a marker, choose the work you want to hear and please "play".'
+      myData : [{value:'One',selected:true},{value:'Two'}]
     };
   }
+
   render() { 
     let lgClose = () => this.setState({ lgShow: false });
 
@@ -35,21 +32,20 @@ class Header extends React.Component{
         downloadAudioConfig = configuration;
       }
     });
-
-
+    
     return (
-      <Navbar inverse collapseOnSelect> 
+      <Navbar collapseOnSelect> 
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">{this.props.title}</Link>
           </Navbar.Brand>
         </Navbar.Header>
-        <Nav>
+        <Nav >
         {aboutConfig ?  
         <LinkContainer to="#">
           <NavItem eventKey={1} onClick={() => this.setState({ lgShow: true,title:aboutConfig.key, body:aboutConfig.value })} >{aboutConfig.key}</NavItem>
         </LinkContainer>:undefined}
-        <LinkContainer to="#">
+        <LinkContainer to="/addAudio">
           <NavItem eventKey={2}>Add Audio</NavItem>
         </LinkContainer>
         {downloadAudioConfig ? 
@@ -60,14 +56,18 @@ class Header extends React.Component{
           <LinkContainer to="#">
             <NavItem eventKey={2} onClick={() => this.setState({ lgShow: true,title:faqConfig.key, body:faqConfig.value })} >{faqConfig.key}</NavItem>
           </LinkContainer>:undefined}
+          
+          <LinkContainer to="/admin">
+            <NavItem eventKey={2}>Admin</NavItem>
+          </LinkContainer>
         </Nav>
         <Nav pullRight>
-        <LinkContainer to="/admin">
-          <NavItem eventKey={2}>Admin</NavItem>
-        </LinkContainer>
-        
+          <NavItem>Filters:</NavItem>
+          <NavItem><input type="text" placeholder="Min Age" style={{height:10, margin:0,width:100}} /></NavItem>
+          <NavItem><input type="text" placeholder="Max Age" style={{height:10, margin:0,width:100}}/></NavItem>
+          <NavItem> <Multiselect data={this.state.myData} multiple/>
+          </NavItem>
         </Nav>
-
         <StaticModal show={this.state.lgShow} onHide={lgClose} subheading={this.state.subheading} title={this.state.title} body={this.state.body}/>
       </Navbar>
     );

@@ -8,6 +8,7 @@ import Login from '../ui/user/Login';
 import NotFound from '../ui/NotFound';
 import Dashboard from '../ui/dashboard/Dashboard';
 import LandingPage from '../ui/public/LandingPage';
+import AddAudio from '../ui/public/AddAudio';
 
 export const onAuthChange = (isAuthenticated,currentPagePrivacy) => {
 
@@ -26,6 +27,7 @@ export const routes = (
    <Router history={history}>
         <Switch>
             <Route exact path='/' component={LandingPage} privacy="unauth"/>
+            <Route exact path='/addAudio' component={AddAudio} privacy="unauth"/>
             <Route exact path='/admin' component={Login} privacy="unauth" />
             <Route exact path='/signup' component={Signup} privacy="auth" />
             <Route exact path='/dashbaord' component={Dashboard} privacy="auth" />

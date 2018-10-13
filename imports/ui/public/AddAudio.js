@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleMapComponent from '../components/GoogleMapComponent';
 import Header from './Header';
 
-export default class LandingPage extends React.Component{
+export default class AddAudio extends React.Component{
 
     componentDidMount(nextState){
         const lastRoute = nextState.routes[nextState.routes.length - 1];
