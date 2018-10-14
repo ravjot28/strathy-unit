@@ -1,22 +1,10 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  NavItem,
-  ControlLabel,
-  Button,
-  ToggleButtonGroup,
-  FormControl,
-  ToggleButton,
-  NavDropdown,
-  InputGroup
-} from "react-bootstrap";
+import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
 import StaticModal from "../components/StaticModal";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import { createContainer } from "meteor/react-meteor-data";
 import { Configurations } from "../../api/configurations";
-import { FormGroup } from "react-bootstrap";
 
 class Header extends React.Component {
   constructor(props, context) {
@@ -115,96 +103,7 @@ class Header extends React.Component {
           </LinkContainer>
         </Nav>
         <Nav pullRight>
-          <NavDropdown title="Filters" id="filters">
-            <form
-              style={{
-                padding: "20px"
-              }}
-              onSubmit={this.handleFormSubmit}
-            >
-              <FormGroup>
-                <ControlLabel>Gender</ControlLabel>
-                <ToggleButtonGroup
-                  style={{ padding: "0 5px" }}
-                  type="radio"
-                  name="gender"
-                >
-                  <ToggleButton value="m">Male</ToggleButton>
-                  <ToggleButton value="f">Female</ToggleButton>
-                </ToggleButtonGroup>
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Minimum age</ControlLabel>
-                <FormControl
-                  defaultValue={20}
-                  name="minimum_age"
-                  componentClass="select"
-                  placeholder="Minimum age"
-                >
-                  {Array(100)
-                    .fill(0)
-                    .map((_, i) => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))}
-                </FormControl>
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Maximum age</ControlLabel>
-                <FormControl
-                  name="maximum_age"
-                  componentClass="select"
-                  defaultValue={40}
-                  placeholder="Maximum age"
-                >
-                  {Array(100)
-                    .fill(0)
-                    .map((_, i) => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))}
-                </FormControl>
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>English mother tongue?</ControlLabel>
-                <ToggleButtonGroup
-                  type="radio"
-                  style={{ padding: "0 5px" }}
-                  name="english"
-                >
-                  <ToggleButton value="yes">Yes</ToggleButton>
-                  <ToggleButton value="no">No</ToggleButton>
-                </ToggleButtonGroup>
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Time in Canada</ControlLabel>
-                <ToggleButtonGroup
-                  type="radio"
-                  style={{ padding: "0 5px" }}
-                  name="canada"
-                >
-                  <ToggleButton value="1">
-                    Born in Canada or arrived before age 5
-                  </ToggleButton>
-                  <ToggleButton value="2">
-                    Arrived between 5 and 12
-                  </ToggleButton>
-                  <ToggleButton value="3">
-                    Arrived between 13 and 20
-                  </ToggleButton>
-                  <ToggleButton value="4">Arrived age 21 or older</ToggleButton>
-                  <ToggleButton value="5">
-                    I have never lived in Canada
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </FormGroup>
-              <Button type="submit" bsStyle="primary">
-                Apply
-              </Button>
-            </form>
-          </NavDropdown>
+          <NavDropdown title="Filters" id="filters" />
         </Nav>
         <StaticModal
           show={this.state.lgShow}
@@ -216,31 +115,6 @@ class Header extends React.Component {
       </Navbar>
     );
   }
-
-  handleFormSubmit = e => {
-    e.preventDefault();
-    const {
-      gender,
-      maximum_age,
-      minimum_age,
-      english,
-      canada
-    } = e.currentTarget;
-
-    alert(
-      JSON.stringify(
-        {
-          gender: gender.value,
-          maximum_age: maximum_age.value,
-          minimum_age: minimum_age.value,
-          canada: canada.value,
-          english: english.value
-        },
-        null,
-        2
-      )
-    );
-  };
 }
 
 export default createContainer(() => {
