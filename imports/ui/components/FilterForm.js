@@ -7,15 +7,30 @@ import {
   ToggleButton,
   FormGroup
 } from "react-bootstrap";
+import {Range} from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 export default class FilterForm extends React.PureComponent {
+  constructor(props){
+    super(props);
+    this.state= {
+      minAge:20,
+      maxAge:100
+    }
+  }
+
+  handleChange(e){
+    this.setState({minAge:e[0],maxAge:e[1]});
+  }
+
   render() {
     const { style, onSubmit, ...props } = this.props;
+
     return (
       <form
         style={{
-          backgroundColor: "white",
-          width: "25vw",
+          backgroundColor: "rgba(255, 0, 0, 0.5)",
+          width: "18vw",
           position: "fixed",
           top: "0",
           left: "0",
@@ -30,51 +45,23 @@ export default class FilterForm extends React.PureComponent {
           <ControlLabel>Gender</ControlLabel>
           <ToggleButtonGroup
             style={{ padding: "0 5px" }}
-            type="radio"
+            type="checkbox"
             name="gender"
           >
-            <ToggleButton value="m">Male</ToggleButton>
-            <ToggleButton value="f">Female</ToggleButton>
+            <ToggleButton value="male">Male</ToggleButton>
+            <ToggleButton value="female">Female</ToggleButton>
+            <ToggleButton value="thirdGender">Third Gender</ToggleButton>
+            <ToggleButton value="other">Other</ToggleButton>
           </ToggleButtonGroup>
         </FormGroup>
         <FormGroup>
-          <ControlLabel>Minimum age</ControlLabel>
-          <FormControl
-            defaultValue={20}
-            name="minimum_age"
-            componentClass="select"
-            placeholder="Minimum age"
-          >
-            {Array(100)
-              .fill(0)
-              .map((_, i) => (
-                <option key={i} value={i}>
-                  {i}
-                </option>
-              ))}
-          </FormControl>
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Maximum age</ControlLabel>
-          <FormControl
-            name="maximum_age"
-            componentClass="select"
-            defaultValue={40}
-            placeholder="Maximum age"
-          >
-            {Array(100)
-              .fill(0)
-              .map((_, i) => (
-                <option key={i} value={i}>
-                  {i}
-                </option>
-              ))}
-          </FormControl>
+          <ControlLabel>Age Range: {this.state.minAge} - {this.state.maxAge}</ControlLabel>
+          <Range min={0} max={120} defaultValue={[this.state.minAge, this.state.maxAge]} onChange={this.handleChange.bind(this)}/>
         </FormGroup>
         <FormGroup>
           <ControlLabel>English mother tongue?</ControlLabel>
           <ToggleButtonGroup
-            type="radio"
+            type="checkbox"
             style={{ padding: "0 5px" }}
             name="english"
           >
@@ -85,17 +72,15 @@ export default class FilterForm extends React.PureComponent {
         <FormGroup>
           <ControlLabel>Time in Canada</ControlLabel>
           <ToggleButtonGroup
-            type="radio"
+            type="checkbox"
             style={{ padding: "0 5px" }}
             name="canada"
           >
-            <ToggleButton value="1">
-              Born in Canada or arrived before age 5
-            </ToggleButton>
-            <ToggleButton value="2">Arrived between 5 and 12</ToggleButton>
-            <ToggleButton value="3">Arrived between 13 and 20</ToggleButton>
-            <ToggleButton value="4">Arrived age 21 or older</ToggleButton>
-            <ToggleButton value="5">I have never lived in Canada</ToggleButton>
+            <ToggleButton value="1">Canada born orArrived Below 5 age</ToggleButton>
+            <ToggleButton value="3">Arrived between 5 and 12</ToggleButton>
+            <ToggleButton value="4">Arrived between 13 and 20</ToggleButton>
+            <ToggleButton value="5">Arrived age 21 or older</ToggleButton>
+            <ToggleButton value="6">I have never lived in Canada</ToggleButton>
           </ToggleButtonGroup>
         </FormGroup>
         <Button type="submit" bsStyle="primary">
