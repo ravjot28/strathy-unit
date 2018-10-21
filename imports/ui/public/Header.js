@@ -97,13 +97,11 @@ class Header extends React.Component {
           ) : (
             undefined
           )}
-
+        </Nav>
+        <Nav pullRight>
           <LinkContainer to="/admin">
             <NavItem eventKey={2}>Admin</NavItem>
           </LinkContainer>
-        </Nav>
-        <Nav pullRight>
-          <NavDropdown title="Filters" id="filters" />
         </Nav>
         <StaticModal
           show={this.state.lgShow}

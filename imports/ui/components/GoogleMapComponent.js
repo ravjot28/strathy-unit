@@ -128,7 +128,7 @@ class GoogleMapComponent extends Component {
 export default compose(
   withProps({
     googleMapURL:
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyDGypUeicTUNhGdEhWueQ7YqTTkXJzwuCs&v=3.exp&libraries=geometry,drawing,places",
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyApu2UBKvhlvvdJXYgN445jNIyikBSs4fg&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `96.5vh`, width: `100vw` }} />,
     mapElement: <div style={{ height: `100%` }} />
