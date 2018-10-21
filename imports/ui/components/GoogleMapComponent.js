@@ -9,6 +9,8 @@ import React, { Component } from "react";
 import { SearchBox } from "react-google-maps/lib/components/places/SearchBox";
 import _ from "lodash";
 import { compose, withProps } from "recompose";
+import AddAudioForm from '../components/AddAudioForm';
+import StaticModal from '../components/StaticModal';
 
 class GoogleMapComponent extends Component {
   constructor(props) {
@@ -21,7 +23,9 @@ class GoogleMapComponent extends Component {
       },
       markers: [],
       bounds: null,
-      locationFound: undefined
+      locationFound: undefined,
+      showAddAudio:false,
+      title:'Add Audio'
     };
   }
 
@@ -66,7 +70,14 @@ class GoogleMapComponent extends Component {
       locationFound: { lat: nextCenter.lat(), lng: nextCenter.lng() }
     });
 
+    if(this.props.addAudio && this.props.addAudio === "true"){
+      this.setState({showAddAudio:true});
+    }
     // refs.map.fitBounds(bounds);
+  }
+
+  handleAddAudio(){
+      this.setState({showAddAudio:!this.state.showAddAudio});
   }
 
   render() {
@@ -120,6 +131,10 @@ class GoogleMapComponent extends Component {
         {this.props.isMarkerShown && (
           <Marker position={this.props.currentLocation} />
         )}
+        <StaticModal show={this.state.showAddAudio} body={<AddAudioForm/>}
+                onHide={this.handleAddAudio.bind(this)}
+                subheading={this.state.subheading}
+                title={this.state.title}/>
       </GoogleMap>
     );
   }
@@ -128,7 +143,7 @@ class GoogleMapComponent extends Component {
 export default compose(
   withProps({
     googleMapURL:
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyApu2UBKvhlvvdJXYgN445jNIyikBSs4fg&v=3.exp&libraries=geometry,drawing,places",
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyA6Wl62GpxSMd-48oVq1PC7_L6vViE88Rg&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `96.5vh`, width: `100vw` }} />,
     mapElement: <div style={{ height: `100%` }} />
